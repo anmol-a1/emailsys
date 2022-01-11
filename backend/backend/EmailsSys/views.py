@@ -5,6 +5,7 @@ from rest_framework import status,views
 from .utils import Util
 from AuthenticateSys.models import NewUser
 from .serializers import UsersListSerializers,RequestSerializer
+from .models import EmailHistory
 class UsersList(generics.ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = UsersListSerializers
@@ -17,6 +18,8 @@ class SendEmails(generics.GenericAPIView):
         email_body=request.data.get('email_body','')
         email_subject=request.data.get('email_subject','')
         for ins in list:
+                emailobj=EmailHistory(receiver=ins,email_body=email_body,email_subject=email_subject)
+                emailobj.save()
                 data = {'email_body': email_body, 'to_email': ins,
                     'email_subject': email_subject}
                 Util.send_email(data)
