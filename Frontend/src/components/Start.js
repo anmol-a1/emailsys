@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import axiosInstance from '../Axios';
 import { Link } from 'react-router-dom'
-
 const Start = (props) => {
     const history = useNavigate();
     const [logintext, setlogintext] = useState("")
